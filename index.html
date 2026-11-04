@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pequeños Exploradores | Plataforma Educativa Interactiva</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS de Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- NAVBAR SUPERIOR -->
+    <header class="navbar">
+        <div class="logo-container" onclick="mostrarPantalla('inicio')">
+            <i class="fa-solid fa-earth-americas logo-icon"></i>
+            <h1>Pequeños Exploradores</h1>
+        </div>
+        <div class="user-stats">
+            <div class="stat-badge stars-badge" title="Tus Estrellas">
+                <i class="fa-solid fa-star"></i> <span id="contador-estrellas">0</span>
+            </div>
+            <div class="stat-badge level-badge" title="Nivel Actual">
+                <i class="fa-solid fa-trophy"></i> <span id="nivel-usuario">Nivel 1</span>
+            </div>
+            <button class="btn-auth-header" onclick="abrirModalAuth()"><i class="fa-solid fa-user-lock"></i> <span id="lbl-sesion">Cuenta / Portal Tutores</span></button>
+        </div>
+    </header>
+
+    <!-- BARRA NAVEGACIÓN INFERIOR -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="mostrarPantalla('inicio')" id="btn-nav-inicio"><i class="fa-solid fa-house"></i><span>Inicio</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('materias')" id="btn-nav-materias"><i class="fa-solid fa-book-bookmark"></i><span>Materias</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('matematicas')" id="btn-nav-matematicas"><i class="fa-solid fa-calculator"></i><span>Mate</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('lecturas')" id="btn-nav-lecturas"><i class="fa-solid fa-book-open"></i><span>Lectura</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('valores')" id="btn-nav-valores"><i class="fa-solid fa-heart"></i><span>Valores</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('habitos')" id="btn-nav-habitos"><i class="fa-solid fa-list-check"></i><span>Hábitos</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('tienda')" id="btn-nav-tienda"><i class="fa-solid fa-gift"></i><span>Premios</span></button>
+        <button class="nav-item" onclick="mostrarPantalla('perfil-nino')" id="btn-nav-perfil-nino"><i class="fa-solid fa-user-astronaut"></i><span>Mi Perfil</span></button>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="main-container">
+
+        <!-- VISTA INICIO -->
+        <section id="sec-inicio" class="content-section active">
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h2>¡Hola, <span id="nombre-nino-activo">Explorador</span>! 🚀</h2>
+                    <p>Aprende, acumula estrellas y canjea increíbles recompensas.</p>
+                </div>
+                <div class="welcome-illustration"><i class="fa-solid fa-rocket floating"></i></div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card card-materias" onclick="mostrarPantalla('materias')">
+                    <i class="fa-solid fa-shapes card-icon"></i>
+                    <h3>Materias Escolares</h3>
+                    <p>Español, Ciencias, Historia, Geografía y Ética.</p>
+                </div>
+                <div class="module-card card-mate" onclick="mostrarPantalla('matematicas')">
+                    <i class="fa-solid fa-brain card-icon"></i>
+                    <h3>Retos Matemáticos</h3>
+                    <p>Sumas, Restas, Multiplicaciones, Divisiones y Fracciones.</p>
+                </div>
+                <div class="module-card card-lectura" onclick="mostrarPantalla('lecturas')">
+                    <i class="fa-solid fa-book-reader card-icon"></i>
+                    <h3>Lecturas y Cuentos</h3>
+                    <p>Historias detalladas con cuestionarios de comprensión.</p>
+                </div>
+                <div class="module-card card-valores" onclick="mostrarPantalla('valores')">
+                    <i class="fa-solid fa-heart-circle-check card-icon"></i>
+                    <h3>Valores Humanos</h3>
+                    <p>Empatía, Respeto, Honestidad, Responsabilidad y más.</p>
+                </div>
+                <div class="module-card card-habitos" onclick="mostrarPantalla('habitos')">
+                    <i class="fa-solid fa-star card-icon"></i>
+                    <h3>Hábitos Diarios</h3>
+                    <p>Gana estrellas ordenando tu cuarto y ayudando en casa.</p>
+                </div>
+                <div class="module-card card-tienda" onclick="mostrarPantalla('tienda')">
+                    <i class="fa-solid fa-award card-icon"></i>
+                    <h3>Tienda de Premios</h3>
+                    <p>Desbloquea insignias, trofeos y avatares por tus estrellas.</p>
+                </div>
+                <div class="module-card card-perfil" onclick="mostrarPantalla('perfil-nino')">
+                    <i class="fa-solid fa-user-astronaut card-icon"></i>
+                    <h3>Mi Perfil de Explorador</h3>
+                    <p>Mira tu avatar, nivel, estrellas y tu código QR.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA PERFIL DEL NIÑO -->
+        <section id="sec-perfil-nino" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-id-card"></i> Mi Perfil de Explorador</h2>
+                <p>Aquí puedes consultar tu información personal y tus avances.</p>
+            </div>
+
+            <div class="child-profile-card">
+                <div class="avatar-large">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <div class="child-profile-info">
+                    <h2 id="pnino-nombre">Explorador</h2>
+                    <p class="badge-grado" id="pnino-grado">Sin Grado Registrado</p>
+                    
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <i class="fa-solid fa-cake-candles"></i>
+                            <span id="pnino-edad">--</span>
+                            <small>Edad</small>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-star"></i>
+                            <span id="pnino-estrellas">0</span>
+                            <small>Estrellas</small>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span id="pnino-nivel">1</span>
+                            <small>Nivel</small>
+                        </div>
+                    </div>
+
+                    <div class="qr-container-box">
+                        <h4><i class="fa-solid fa-qrcode"></i> Mi Credencial y Código QR</h4>
+                        <p>Usa este código único para iniciar sesión rápidamente:</p>
+                        <div class="qr-code-text" id="pnino-qr-code">EXPLORADOR-0000000000</div>
+                        <div id="pnino-qr-img-box" class="qr-image-holder"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA MATERIAS -->
+        <section id="sec-materias" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-book-bookmark"></i> Materias Escolares de Primaria</h2>
+                <p>Información clara, explicaciones interactivas e imágenes educativas.</p>
+            </div>
+            <div class="tabs-sub">
+                <button class="sub-tab active" onclick="cargarMateria('espanol')">Español</button>
+                <button class="sub-tab" onclick="cargarMateria('ciencias')">Ciencias Naturales</button>
+                <button class="sub-tab" onclick="cargarMateria('geografia')">Geografía</button>
+                <button class="sub-tab" onclick="cargarMateria('historia')">Historia</button>
+                <button class="sub-tab" onclick="cargarMateria('civica')">Formación Cívica y Ética</button>
+            </div>
+            <div id="materia-contenido-box" class="subject-card-box"></div>
+        </section>
+
+        <!-- VISTA MATEMÁTICAS -->
+        <section id="sec-matematicas" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-calculator"></i> Arena de Matemáticas</h2>
+                <p>Acepta retos y demuestra tus habilidades operativas.</p>
+            </div>
+            <div class="math-menu">
+                <button class="math-mode-btn" onclick="iniciarJuegoMate('suma')">Sumas (+)</button>
+                <button class="math-mode-btn" onclick="iniciarJuegoMate('resta')">Restas (-)</button>
+                <button class="math-mode-btn" onclick="iniciarJuegoMate('multiplicacion')">Multiplicaciones (×)</button>
+                <button class="math-mode-btn" onclick="iniciarJuegoMate('division')">Divisiones (÷)</button>
+                <button class="math-mode-btn" onclick="iniciarJuegoMate('fracciones')">Fracciones (½)</button>
+            </div>
+            <div id="arena-mate" class="quiz-box hidden" style="margin-top:20px;">
+                <h3 id="pregunta-mate-txt">5 + 3 = ?</h3>
+                <input type="number" id="resp-mate-input" class="input-std" placeholder="Respuesta" style="max-width: 200px; margin: 10px auto;">
+                <br>
+                <button class="btn-primary" onclick="verificarRespuestaMate()">Comprobar</button>
+                <p id="feedback-mate" class="feedback-msg" style="margin-top:10px; font-weight:600;"></p>
+            </div>
+        </section>
+
+        <!-- VISTA LECTURAS LARGAS -->
+        <section id="sec-lecturas" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-book-open"></i> Biblioteca de Cuentos Largos</h2>
+                <p>Lee con atención para responder el cuestionario y ganar 5 estrellas.</p>
+            </div>
+            <div id="grid-lecturas" class="articles-grid"></div>
+        </section>
+
+        <!-- VISTA VALORES -->
+        <section id="sec-valores" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-heart"></i> Módulo de Valores y Convivencia</h2>
+                <p>Tarjetas estilizadas y simulador de toma de decisiones cotidianas.</p>
+            </div>
+            <div id="grid-valores-tarjetas" class="values-grid"></div>
+        </section>
+
+        <!-- VISTA HÁBITOS -->
+        <section id="sec-habitos" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-list-check"></i> Retos y Hábitos Diarios</h2>
+                <p>Completa tus hábitos cumplidos de hoy para ganar estrellas al instante.</p>
+            </div>
+            <div class="checklist-card">
+                <div class="habit-item">
+                    <span>🛏️ ¿Ya tendiste tu cama hoy?</span>
+                    <button class="btn-star" onclick="completarHabito(this, 1)">¡Sí! (+1 ⭐)</button>
+                </div>
+                <div class="habit-item">
+                    <span>🧸 ¿Ya ordenaste tus juguetes y útiles?</span>
+                    <button class="btn-star" onclick="completarHabito(this, 1)">¡Sí! (+1 ⭐)</button>
+                </div>
+                <div class="habit-item">
+                    <span>🧹 ¿Ya ayudaste en una tarea de la casa?</span>
+                    <button class="btn-star" onclick="completarHabito(this, 1)">¡Sí! (+1 ⭐)</button>
+                </div>
+                <div class="habit-item">
+                    <span>🏃‍♂️ ¿Realizaste actividad física o jugaste al aire libre?</span>
+                    <button class="btn-star" onclick="completarHabito(this, 1)">¡Sí! (+1 ⭐)</button>
+                </div>
+                <div class="habit-item">
+                    <span>📖 ¿Leíste al menos 15 minutos hoy?</span>
+                    <button class="btn-star" onclick="completarHabito(this, 1)">¡Sí! (+1 ⭐)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA TIENDA -->
+        <section id="sec-tienda" class="content-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-gift"></i> Tienda de Recompensas por Estrellas</h2>
+                <p>Canjea tus estrellas por medallas, trofeos e insignias exclusivas.</p>
+            </div>
+            <div class="rewards-grid" id="grid-recompensas"></div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE AUTENTICACIÓN / PORTAL DE TUTORES (ABCM) -->
+    <div class="modal-overlay" id="modal-auth">
+        <div class="modal-card">
+            <button class="modal-close" onclick="cerrarModalAuth()">&times;</button>
+            <div id="auth-seccion-tutor">
+                <h3>Portal del Tutor / Padre de Familia</h3>
+                <div class="tabs-sub" style="margin-top:15px;">
+                    <button class="sub-tab active" onclick="verTabAuth('login')">Ingresar</button>
+                    <button class="sub-tab" onclick="verTabAuth('registro')">Registrarse</button>
+                    <button class="sub-tab" onclick="verTabAuth('qr')">Ingreso QR Niño</button>
+                </div>
+
+                <!-- LOGIN TUTOR -->
+                <form id="form-login-tutor" onsubmit="loginTutor(event)">
+                    <input type="email" id="login-email" class="input-std" placeholder="Correo Electrónico" required>
+                    <input type="password" id="login-pwd" class="input-std" placeholder="Contraseña" required>
+                    <button type="submit" class="btn-primary block">Entrar al Portal</button>
+                </form>
+
+                <!-- REGISTRO TUTOR -->
+                <form id="form-reg-tutor" class="hidden" onsubmit="registroTutor(event)">
+                    <input type="text" id="reg-nombre" class="input-std" placeholder="Nombre Completo" required>
+                    <input type="email" id="reg-email" class="input-std" placeholder="Correo Electrónico" required>
+                    <input type="password" id="reg-pwd" class="input-std" placeholder="Contraseña" required>
+                    <input type="text" id="reg-tel" class="input-std" placeholder="Teléfono de contacto">
+                    <button type="submit" class="btn-primary block">Crear Cuenta</button>
+                </form>
+
+                <!-- INGRESO POR CÓDIGO QR NIÑO -->
+                <div id="box-login-qr" class="hidden text-center">
+                    <p style="margin-bottom:10px;">Ingresa el código único del niño o escanea su credencial QR:</p>
+                    <input type="text" id="qr-code-input" class="input-std" placeholder="Ej. EXPLORADOR-A1B2C3D4">
+                    <button class="btn-primary block" onclick="loginNinoQR()">Iniciar Sesión de Niño</button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN PANEL DE ADMINISTRACIÓN ABCM NIÑOS (PRIVADO) -->
+            <div id="panel-abcm-tutor" class="hidden">
+                <h3>Panel de Gestión de Perfiles (ABCM)</h3>
+                <button class="btn-secondary" onclick="cerrarSesionTutor()">Cerrar Sesión Tutor</button>
+                <hr style="margin: 15px 0;">
+
+                <h4>Agregar Nuevo Perfil de Niño (Alta)</h4>
+                <form onsubmit="altaNino(event)">
+                    <input type="text" id="alta-nombre" class="input-std" placeholder="Nombre del niño" required>
+                    <input type="number" id="alta-edad" class="input-std" placeholder="Edad" required>
+                    <input type="text" id="alta-grado" class="input-std" placeholder="Grado Escolar (Ej. 3° Primaria)" required>
+                    <select id="alta-genero" class="input-std">
+                        <option value="Niño">Niño</option>
+                        <option value="Niña">Niña</option>
+                    </select>
+                    <button type="submit" class="btn-primary block">Guardar Perfil</button>
+                </form>
+
+                <h4 style="margin-top: 20px;">Niños Registrados (Modificación, Baja, Consultas y QR)</h4>
+                <div id="lista-ninos-abcm" class="abcm-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript de Flask -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
